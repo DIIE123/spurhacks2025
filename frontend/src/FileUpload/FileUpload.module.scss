@@ -1,0 +1,16 @@
+@use "/src/mixins";
+
+.fileButton {
+  @include mixins.button;
+
+  display: block;
+  background: linear-gradient(
+    90deg,
+    rgba(62, 194, 250, 1) 0%,
+    rgba(41, 84, 255, 1) 100%
+  );
+}
+
+.file {
+  display: none;
+}

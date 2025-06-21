@@ -1,0 +1,45 @@
+@use "/src/mixins";
+$sheet-width: 50rem;
+
+h2 {
+  margin: 1rem 0 0;
+  font-size: 2rem;
+}
+
+.display {
+  width: $sheet-width;
+  max-height: calc($sheet-width / 8.5 * 11);
+  overflow: auto;
+  border: 2px solid black;
+  transition: opacity 0.5s;
+}
+
+.invisible {
+  height: 0;
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.loading {
+  @include mixins.center;
+
+  img {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  p {
+    color: blue;
+    font-size: 2rem;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem;
+}

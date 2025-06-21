@@ -1,0 +1,11 @@
+@use "/src/mixins";
+
+.downloadButton {
+  @include mixins.button;
+
+  background: linear-gradient(
+    90deg,
+    rgb(250, 99, 255) 0%,
+    rgb(255, 41, 112) 100%
+  );
+}
