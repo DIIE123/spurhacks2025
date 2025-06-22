@@ -12,10 +12,17 @@ export default function App() {
     new Image().src = loadingGif;
   }, []);
 
+<<<<<<< HEAD
   const handleChange = async (e) => {
     const file = e.target.files[0];
     console.log(file);
     handleUpload(file);
+=======
+  async function onChange(event) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("musicFile", file);
+>>>>>>> 7a8d1ddc27fddf2bf1cba72203f5ab6293cf4ea9
   }
 
   const handleUpload = async (file) => {
