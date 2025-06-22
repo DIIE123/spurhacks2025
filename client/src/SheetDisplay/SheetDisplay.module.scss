@@ -7,6 +7,7 @@ h2 {
 }
 
 .display {
+  background-color: white;
   width: $sheet-width;
   max-height: calc($sheet-width / 8.5 * 11);
   overflow: auto;
