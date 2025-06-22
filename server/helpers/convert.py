@@ -67,7 +67,7 @@ def convert_midi_to_xml(midi_path, quantize=True):
     right_hand.append(rh_voice)
 
     piano_score = stream.Score()
-    piano_score.insert(0, metadata.Metadata(title=midi_path[:-4]))
+    piano_score.insert(0, metadata.Metadata(title="Converted Song"))
     piano_score.insert(0, right_hand)
     piano_score.insert(0, left_hand)
 

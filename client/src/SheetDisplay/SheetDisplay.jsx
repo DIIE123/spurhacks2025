@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { OpenSheetMusicDisplay as OSMD } from "opensheetmusicdisplay";
 import FileUpload from "../FileUpload/FileUpload";
 import DownloadButton from "../DownloadButton/DownloadButton";
+import Loading from "../Loading/Loading";
 import MidiPlayer from "midi-player-js";
 import styles from "./SheetDisplay.module.scss";
 

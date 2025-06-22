@@ -6,7 +6,7 @@ export default function DownloadButton({ musicFile }) {
     const url = window.URL.createObjectURL(musicFile);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", `Converted.xml`);
+    link.setAttribute("download", `Converted Song.xml`);
 
     // Append to html link element page
     document.body.appendChild(link);
