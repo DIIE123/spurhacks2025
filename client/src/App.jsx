@@ -5,23 +5,48 @@ import loadingGif from "./assets/loading.gif";
 import axios from 'axios';
 
 export default function App() {
-  const [inputFile, setFile] = useState(null);
+  const [file, setFile] = useState(null);
 
-    // preload image
+  // preload image
   useEffect(() => {
     new Image().src = loadingGif;
   }, []);
 
-  async function onChange(event) {
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("musicFile", file);
+  const handleChange = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    handleUpload(file);
   }
+
+  const handleUpload = async (file) => {
+    if(!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/sheet-music", 
+        formData, 
+        { responseType: 'blob' }
+      );
+
+      const blob = new Blob([response.data], { type: 'application/xml' });
+      setFile(blob);
+    }
+    catch(error) {
+      console.error("Upload Failed:", error);
+    }
+  }
+
+
+
+  
 
   return (
     <>
-      {!inputFile && <Home onChange={onChange} />}
-      {inputFile && <SheetDisplay musicFile={inputFile} midiFile={"./arabesqu.mid"} onChange={onChange} loadingGif={loadingGif} />}
+      {!file && <Home onChange={handleChange} />}
+      {file && <SheetDisplay musicFile={file} midiFile={file} onChange={handleChange} loadingGif={loadingGif} />}
     </>
   )
 }
