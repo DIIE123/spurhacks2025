@@ -5,7 +5,7 @@ import DownloadButton from "../DownloadButton/DownloadButton";
 import MidiPlayer from "midi-player-js";
 import styles from "./SheetDisplay.module.scss";
 
-export default function SheetDisplay({ musicFile, midiFile, onChange, loadingGif }) {
+export default function SheetDisplay({ musicFile, midiFile, onChange }) {
   const osmdContainer = useRef(null);
   const osmdRef = useRef(null);
   const midiRef = useRef(null);
@@ -50,7 +50,8 @@ export default function SheetDisplay({ musicFile, midiFile, onChange, loadingGif
         // midiPlayer.loadArrayBuffer(midiArrayBuffer);
         // midiRef.current = midiPlayer;
         setLoading(false);
-      } catch {
+      } catch(error) {
+        console.log("Display failed: ", error);
         setLoading(false);
         setError(true);
       }
@@ -79,12 +80,7 @@ export default function SheetDisplay({ musicFile, midiFile, onChange, loadingGif
   return (
     <>
       {error && <p>There was an error with loading the sheet music!</p>}
-      {loading && (
-        <div className={styles.loading}>
-          <img src={loadingGif} width="150" height="150" />
-          <p>Loading Sheet Music...</p>
-        </div>
-      )}
+      {loading && <Loading text="Loading Sheet Music..." />}
       {/* {!loading && !error && (
         <>
           <button onClick={() => {

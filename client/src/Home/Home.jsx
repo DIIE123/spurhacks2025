@@ -12,6 +12,7 @@ export default function Home({ onChange }) {
       <div className={styles.content}>
         <h1 className={styles.title}>TuneScribe</h1>
         <p className={styles.subtext}>Instantly transcribe your favourite tunes, quick and easy.</p>
+        <p className={styles.smallText}>Upload a MIDI file, and convert it into sheet music within seconds!</p>
         <FileUpload onChange={onChange} />
       </div>
     </>

@@ -1,52 +1,60 @@
-import Home from './Home/Home'
-import SheetDisplay from './SheetDisplay/SheetDisplay'
-import { useState, useEffect } from 'react';
-import loadingGif from "./assets/loading.gif";
-import axios from 'axios';
+import Home from "./Home/Home";
+import SheetDisplay from "./SheetDisplay/SheetDisplay";
+import Loading from "./Loading/Loading";
+import { useState } from "react";
+import axios from "axios";
 
 export default function App() {
   const [file, setFile] = useState(null);
-
-  // preload image
-  useEffect(() => {
-    new Image().src = loadingGif;
-  }, []);
+  const [midiFile, setMidiFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleChange = async (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-    handleUpload(file);
-  }
+    const inputFile = e.target.files[0];
+    setLoading(true);
+    setMidiFile(inputFile);
+    handleUpload(inputFile);
+  };
 
   const handleUpload = async (file) => {
-    if(!file) return;
+    if (!file) return;
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/sheet-music", 
-        formData, 
-        { responseType: 'blob' }
+        "http://127.0.0.1:5000/sheet-music",
+        formData,
+        { responseType: "blob" }
       );
 
-      const blob = new Blob([response.data], { type: 'application/xml' });
+      const blob = new Blob([response.data], { type: "application/xml" });
       setFile(blob);
+      setLoading(false);
+    } catch (error) {
+      console.error("Conversion Failed: ", error);
+      setLoading(false);
+      setError(true);
     }
-    catch(error) {
-      console.error("Upload Failed:", error);
-    }
+  };
+
+  if (error) {
+    return <p>There was an error with converting the file!</p>;
+  }
+  if (loading) {
+    return <Loading text="Converting File..." />;
+  }
+  if (!file) {
+    return <Home onChange={handleChange} />;
   }
 
-
-
-  
-
   return (
-    <>
-      {!file && <Home onChange={handleChange} />}
-      {file && <SheetDisplay musicFile={file} midiFile={file} onChange={handleChange} loadingGif={loadingGif} />}
-    </>
-  )
+    <SheetDisplay
+      musicFile={file}
+      midiFile={midiFile}
+      onChange={handleChange}
+    />
+  );
 }

@@ -1,0 +1,15 @@
+@use "/src/mixins";
+
+.loading {
+  @include mixins.center;
+
+  img {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  p {
+    color: blue;
+    font-size: 2rem;
+  }
+}
