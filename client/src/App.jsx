@@ -2,6 +2,7 @@ import Home from './Home/Home'
 import SheetDisplay from './SheetDisplay/SheetDisplay'
 import { useState, useEffect } from 'react';
 import loadingGif from "./assets/loading.gif";
+import axios from 'axios';
 
 export default function App() {
   const [inputFile, setFile] = useState(null);
@@ -11,8 +12,10 @@ export default function App() {
     new Image().src = loadingGif;
   }, []);
 
-  function onChange(event) {
-    setFile(event.target.files[0]);
+  async function onChange(event) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("musicFile", file);
   }
 
   return (
